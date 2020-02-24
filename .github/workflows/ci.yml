@@ -1,0 +1,28 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+  schedule:
+    - cron: '0 0 * * *'
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag chmodas/docker-scala-sbt:latest
+    - name: Publish the Docker image
+      if: github.event_name != 'pull_request'
+      run: |
+        echo ${{ secrets.DOCKER_HUB }} | docker login --username ${{ secrets.DOCKER_UID }} --password-stdin
+        docker push chmodas/docker-scala-sbt:latest
+        docker logout
