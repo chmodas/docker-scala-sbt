@@ -1,4 +1,4 @@
-FROM chmodas/openjdk-docker-compose:11.0.6
+FROM chmodas/openjdk-docker-compose:11
 
 # Env variables
 ARG SCALA_VERSION
@@ -9,11 +9,6 @@ ENV SCALA_PATH /usr/share/scala
 ENV SBT_VERSION ${SBT_VERSION:-1.2.8}
 ENV SBT_PATH /usr/share/sbt
 ENV PATH "$PATH:$SBT_PATH/bin:$SCALA_PATH/bin"
-
-# Install build stuff
-RUN set -eux; \
-  apt-get update; \
-  apt-get install -y --no-install-recommends apt-transport-https ca-certificates curl gnupg2 software-properties-common
 
 # Install sbt
 RUN set -eux; \
