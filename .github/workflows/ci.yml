@@ -19,10 +19,10 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag chmodas/docker-scala-sbt:latest
+      run: docker build . --file Dockerfile --tag chmodas/docker-scala-sbt:11
     - name: Publish the Docker image
       if: github.event_name != 'pull_request'
       run: |
         echo ${{ secrets.DOCKER_HUB }} | docker login --username ${{ secrets.DOCKER_UID }} --password-stdin
-        docker push chmodas/docker-scala-sbt:latest
+        docker push chmodas/docker-scala-sbt:11
         docker logout
