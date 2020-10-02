@@ -6,13 +6,13 @@ ARG SBT_VERSION
 
 ENV SCALA_VERSION ${SCALA_VERSION:-2.13.3}
 ENV SCALA_PATH /usr/share/scala
-ENV SBT_VERSION ${SBT_VERSION:-1.3.9}
+ENV SBT_VERSION ${SBT_VERSION:-1.3.13}
 ENV SBT_PATH /usr/share/sbt
 ENV PATH "$PATH:$SBT_PATH/bin:$SCALA_PATH/bin"
 
 # Install sbt
 RUN set -eux; \
-  curl -L https://piccolo.link/sbt-$SBT_VERSION.tgz | tar xfzv - -C /usr/share; \
+  curl -L https://github.com/sbt/sbt/releases/download/v${SBT_VERSION}/sbt-${SBT_VERSION}.tgz | tar xfzv - -C /usr/share; \
   rm -f $SBT_PATH/bin/*.bat
 
 # Install Scala
