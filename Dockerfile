@@ -12,7 +12,7 @@ ENV PATH "$PATH:$SBT_PATH/bin:$SCALA_PATH/bin"
 
 # Install sbt
 RUN set -eux; \
-  curl -L https://piccolo.link/sbt-$SBT_VERSION.tgz | tar xfzv - -C /usr/share; \
+  curl -L https://github.com/sbt/sbt/releases/download/v${SBT_VERSION}/sbt-${SBT_VERSION}.tgz | tar xfzv - -C /usr/share; \
   rm -f $SBT_PATH/bin/*.bat
 
 # Install Scala
