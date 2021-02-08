@@ -4,9 +4,9 @@ FROM chmodas/openjdk-docker-compose:11
 ARG SCALA_VERSION
 ARG SBT_VERSION
 
-ENV SCALA_VERSION ${SCALA_VERSION:-2.13.3}
+ENV SCALA_VERSION ${SCALA_VERSION:-2.13.4}
 ENV SCALA_PATH /usr/share/scala
-ENV SBT_VERSION ${SBT_VERSION:-1.3.9}
+ENV SBT_VERSION ${SBT_VERSION:-1.4.7}
 ENV SBT_PATH /usr/share/sbt
 ENV PATH "$PATH:$SBT_PATH/bin:$SCALA_PATH/bin"
 
@@ -22,12 +22,12 @@ RUN set -eux; \
 
 # Prepare SBT
 RUN set -eux; \
-  sbt sbtVersion; \
+  sbt -Dsbt.rootdir=true sbtVersion; \
   mkdir -p project; \
   echo "scalaVersion := \"${SCALA_VERSION}\"" > build.sbt; \
   echo "sbt.version=${SBT_VERSION}" > project/build.properties; \
   echo "case object Temp" > Temp.scala; \
-  sbt compile; \
+  sbt -Dsbt.rootdir=true compile; \
   rm -rf project target build.sbt Temp.scala
 
 # Clean up
